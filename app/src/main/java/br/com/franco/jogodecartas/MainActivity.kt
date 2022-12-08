@@ -2,7 +2,11 @@ package br.com.franco.jogodecartas
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import br.com.franco.jogodecartas.databinding.ActivityMainBinding
+import retrofit2.*
+import retrofit2.converter.gson.GsonConverterFactory
+import javax.security.auth.login.LoginException
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,6 +16,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val service = RetrofitClient.createService(ApiCard::class.java)
+        val call: Call<List<DeckId>> = service.list()
+        call.enqueue(object: Callback<List<DeckId>>{
+            override fun onResponse(
+                call: Call<List<DeckId>>, response: Response<List<DeckId>>) {
+
+                val list = response.body()
+            }
+
+            override fun onFailure(call: Call<List<DeckId>>, t: Throwable) {
+                Log.i("TAG", "onResponse: erro ao conectar")
+            }
+
+        })
+
     }
 }
 

@@ -1,8 +1,8 @@
 package br.com.franco.jogodecartas
 
 data class DeckCount(
-    val deck_id: String,
-    val embaralhado: String,
-    val restante: Int,
-    val sucesso: String
+    var deck_id: String? = null,
+    var embaralhado: String? = null,
+    var restante: Int? = null,
+    var sucesso: String? = null
 )
